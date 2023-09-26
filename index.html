@@ -1,0 +1,206 @@
+<html>
+
+
+<head>
+
+</head>
+
+
+<button onclick="gotoHome();"> GİRİŞ YAP</button>
+</br></br></br></br>
+
+
+<button onclick="gotoHome2();"> GİRİŞ YAP Çalışan Kod</button>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script>
+
+function gotoHome2() {
+    
+
+    const userLogsInOptions = (username, password) => {
+    
+      const formData = new URLSearchParams();
+      formData.append('grant_type', 'password');
+      formData.append('applicationId', "2187");
+      formData.append('username', username);
+      formData.append('password', password);
+      return (
+        {
+  		
+          method: 'POST',
+          headers: {
+            // "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+           "Content-Type": "application/x-www-form-urlencoded",
+             
+            
+        },
+        
+          body: formData.toString(),
+        json: true,
+      }
+      );
+    };
+    
+    
+    function base64Encode(str)
+    {
+        var bytes = [];
+        for (var i = 0; i < str.length; ++i)
+        {
+            var charCode = str.charCodeAt(i);
+            bytes.push(charCode & 0xFF);
+            bytes.push((charCode & 0xFF00) >>> 8);
+        }
+    
+        var len = bytes.length;
+        var buffer = "";
+        for (var i = 0; i < len; i++)
+        {
+            buffer += String.fromCharCode(bytes[i]);
+        }
+    
+        return window.btoa(buffer);
+    }
+
+    var newpassword = base64Encode('Fuzem2021');
+
+    
+    const getUserUnlockToken = async (username) => {
+      const userLoginUri = 'https://localhost:8081/token';
+      const response = await fetch(
+        userLoginUri,
+        userLogsInOptions('241@_@' + username, newpassword),
+      );
+      const responseJson = await response.json();
+      if (responseJson.error) {
+        console.error('error ', responseJson.error);
+      }
+      
+
+
+      localStorage.setItem("response", responseJson);
+      localStorage.setItem("token", responseJson.access_token);
+        var tokenObj = { token: responseJson.access_token, user: { roleName: responseJson.userRoleName, status: responseJson.userStatus } };
+        localStorage.setItem("tokenObj", tokenObj);
+        window.name = JSON.stringify(tokenObj);
+
+        
+        tokenB64 = btoa(JSON.stringify(tokenObj));
+        console.log("https://localhost:8081?tokenB64=" + tokenB64 + "&toUrl=/home");
+        alert(tokenB64);
+
+		
+		
+		
+        setTimeout(() => window.location.href = "https://localhost:8057/pages/login?tokenB64=" + tokenB64 + "&toUrl=/home", '_blank', 'noopener, noreferrer', 100)
+      return responseJson.access_token;
+    };  
+    
+    
+    var isLogged = document.getElementsByClassName('user-mail');
+    if (isLogged.length > 0) {
+        var username = isLogged[0].innerHTML;
+        getUserUnlockToken(username);
+    } else { 
+      console.log("test")
+        window.location = 'https://www.google.com';
+        
+    }
+
+}
+	
+	
+	
+	function gotoHome() {
+    
+
+    const userLogsInOptions = (username, password) => {
+    
+      const formData = new URLSearchParams();
+      formData.append('grant_type', 'password');
+      formData.append('applicationId', "241");
+      formData.append('username', username);
+      formData.append('password', password);
+      return (
+        {
+  		
+          method: 'POST',
+          headers: {
+            // "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+           "Content-Type": "application/x-www-form-urlencoded",
+             
+            
+        },
+        
+          body: formData.toString(),
+        json: true,
+      }
+      );
+    };
+    
+    
+    function base64Encode(str)
+    {
+        var bytes = [];
+        for (var i = 0; i < str.length; ++i)
+        {
+            var charCode = str.charCodeAt(i);
+            bytes.push(charCode & 0xFF);
+            bytes.push((charCode & 0xFF00) >>> 8);
+        }
+    
+        var len = bytes.length;
+        var buffer = "";
+        for (var i = 0; i < len; i++)
+        {
+            buffer += String.fromCharCode(bytes[i]);
+        }
+    
+        return window.btoa(buffer);
+    }
+
+    var newpassword = base64Encode('vedu06box,,');
+
+    
+    const getUserUnlockToken = async (username) => {
+      const userLoginUri = 'https://development.vedubox.net/token';
+      const response = await fetch(
+        userLoginUri,
+        userLogsInOptions('241@_@' + username, newpassword),
+      );
+      const responseJson = await response.json();
+      if (responseJson.error) {
+        console.error('error ', responseJson.error);
+      }
+
+      console.log("test")
+      localStorage.clear();
+ 
+      localStorage.setItem("response", responseJson);
+      localStorage.setItem("token", responseJson.access_token);
+        var tokenObj = { token: responseJson.access_token, user: { roleName: responseJson.userRoleName, status: responseJson.userStatus } };
+        localStorage.setItem("tokenObj", tokenObj);
+        window.name = JSON.stringify(tokenObj);
+
+        tokenB64 = btoa(JSON.stringify(tokenObj));
+        console.log("localhost:8057?tokenB64=" + tokenB64 + "&toUrl=/home");
+        alert(tokenB64);
+
+        setTimeout(() => window.location = "https://development.vedubox.net/pages/login?tokenB64=" + tokenB64 + "&toUrl=/home", 50)
+
+
+      
+      return responseJson.access_token;
+    };
+    
+    
+    var isLogged = "123";
+    if (isLogged.length > 0) {
+      console.log("test1")
+        var username = "beteckwill46";
+        getUserUnlockToken(username);
+    }
+}
+</script>
